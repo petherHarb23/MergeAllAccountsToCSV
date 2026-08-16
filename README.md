@@ -20,7 +20,7 @@ Fidelity:
 Example:
 
 ```powershell
-pwsh -File .\MergeAllAccountsToCSV.ps1 -FileList "S:\path\to\Vanguard_2026-08-15_OfxDownload.csv","S:\path\to\Fidelity_Portfolio_Positions_Aug-15-2026.csv" -OutputFile S:\Investing\Mergefile.csv
+pwsh -File .\MergeAllAccountsToCSV.ps1 -FileList "C:\path\to\Vanguard_2026-08-15_OfxDownload.csv","C:\path\to\Fidelity_Portfolio_Positions_Aug-15-2026.csv" -OutputFile C:\path\to\Mergefile.csv
 ```
 
 **Behavior**
