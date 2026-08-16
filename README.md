@@ -63,7 +63,6 @@ The script will use values from the JSON if the file exists; otherwise built-in 
 
 **Repository files**
 - `MergeAllAccountsToCSV.ps1` — main script
-- `MergeAllAccountsToCSV.json` — example config (this file is in `.gitignore` by default to avoid committing secrets/local configs)
 - `.gitignore` — ignores local JSON and common outputs
 
 **Notes & Tips**
