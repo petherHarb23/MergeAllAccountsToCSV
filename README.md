@@ -1,6 +1,6 @@
 # MergeAllAccountsToCSV
 
-Small PowerShell utility to merge account CSVs from Fidelity and Vanguard into a single CSV and an allocation summary.
+Small PowerShell utility to merge account CSVs from Fidelity and Vanguard into a summary CSV and an across-account allocation summary.
 
 **Quick Start**
 
@@ -12,15 +12,24 @@ Small PowerShell utility to merge account CSVs from Fidelity and Vanguard into a
 **Exporting data from custodians**
 
 Fidelity:
-    - Log into fidelity.com
-    - Click on the **Positions** link
-    - Click on the **Download** button, found on the right side of screen just above the table for the first account's positions.
-    - A file named Portfolio_Positions_[DATE].csv will be downloaded via your browser. Rename to include 'Fidelity' in the filename.
+1. Log into https://www.fidelity.com
+2. Click on the **Positions** link
+3. Click on the **Download** button, found on the right side of screen just above the table for the first account's positions.
+4. A file named *Portfolio_Positions_[DATE].csv* will be downloaded via your browser. Rename to include 'Fidelity' in the filename.
+
+Vanguard:
+1. Log into https://www.vanguard.com
+2. Click on the **Holdings** link
+3. Click on the **Download Center** link to the right
+4. Choose "A spreadsheet-compatible CSV File"
+5. Choose any date range. The script ignores transactions, so 1 month is fine.
+6. Choose all accounts you'd like to export holdings info about
+7. Press Download button on bottom right of page. A file named 'OfxDownload.csv' will be downloaded via your browser. Rename this file to include 'Vanguard' and a date in YYYY-MM-DD or MMM-DD-YYYY format in the file name.
 
 Example:
 
 ```powershell
-pwsh -File .\MergeAllAccountsToCSV.ps1 -FileList "C:\path\to\Vanguard_2026-08-15_OfxDownload.csv","C:\path\to\Fidelity_Portfolio_Positions_Aug-15-2026.csv" -OutputFile C:\path\to\Mergefile.csv
+pwsh -File .\MergeAllAccountsToCSV.ps1 -FileList "C:\path\to\Vanguard_2026-08-15_OfxDownload.csv","C:\path\to\Fidelity_Portfolio_Positions_Aug-15-2026.csv" -OutputFile C:\Investing\Mergefile.csv
 ```
 
 **Behavior**
@@ -39,13 +48,13 @@ Example JSON structure:
 ```json
 {
   "accountMap": {
-    "235127901": "Fidelity HSA - Ending 7901",
-    "40048860": "Vanguard Brokerage - Ending 8860"
+    "123456789": "Fidelity account 6789",
+    "012345678": "Vanguard account ending in 5678"
   },
-  "accountExcludeList": ["Z39596235"],
+  "accountExcludeList": ["234567890"],
   "symbolMap": {
-    "VTSAX": "Vanguard Total Stock Market Index Fund Admiral Shares",
-    "SPAXX": "Fidelity Government Money Market Fund"
+    "Ticker": "Ticker Description",
+    "FDRXX": "Fidelity Treasury Money Market Fund"
   }
 }
 ```
@@ -54,13 +63,10 @@ The script will use values from the JSON if the file exists; otherwise built-in 
 
 **Repository files**
 - `MergeAllAccountsToCSV.ps1` — main script
+- `MergeAllAccountsToCSV.json` — example config (this file is in `.gitignore` by default to avoid committing secrets/local configs)
 - `.gitignore` — ignores local JSON and common outputs
 
 **Notes & Tips**
 - Use full paths for input/output when running from a different working directory.
 - For financial totals, the script currently uses floating-point (`float`) for numeric parsing; consider using `decimal` if exact base‑10 accuracy is required.
-- If you want the JSON to be tracked instead of ignored, update `.gitignore` accordingly.
 
-If you want, I can:
-- Switch numeric parsing to use `decimal` for monetary accuracy.
-- Add a small test fixture and example input files.
