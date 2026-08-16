@@ -1,0 +1,19 @@
+# Local JSON configuration (do not commit)
+MergeAllAccountsToCSV.json
+
+# Common generated outputs
+merged*.csv
+*_allocation_*.csv
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# PowerShell temporary files
+*.ps1.d
+
+# VSCode settings
+.vscode/
+
+# Logs
+*.log
